@@ -1,66 +1,66 @@
-import { useState, useEffect } from 'react';
-import api from '../config/api';
+import { useState, useEffect } from "react";
+import api from "../config/api";
 
 // Language translations
 const translations = {
   mr: {
     qrPayment: {
-      title: 'QR पेमेंट',
-      description: 'QR कोड स्कॅन करून पेमेंट करा',
-      scanQR: 'QR कोड स्कॅन करा',
-      amount: 'रक्कम',
-      payNow: 'पेमेंट करा'
+      title: "QR पेमेंट",
+      description: "QR कोड स्कॅन करून पेमेंट करा",
+      scanQR: "QR कोड स्कॅन करा",
+      amount: "रक्कम",
+      payNow: "पेमेंट करा",
     },
     statistics: {
-      title: 'आकडेवारी डॅशबोर्ड',
-      totalPopulation: 'एकूण लोकसंख्या',
-      literacyRate: 'साक्षरता दर',
-      totalLand: 'एकूण जमीन',
-      educationCenters: 'शिक्षण केंद्र'
+      title: "आकडेवारी डॅशबोर्ड",
+      totalPopulation: "एकूण लोकसंख्या",
+      literacyRate: "साक्षरता दर",
+      totalLand: "एकूण जमीन",
+      educationCenters: "शिक्षण केंद्र",
     },
     casteTable: {
-      title: 'जातीनुसार मतदार सारणी',
-      caste: 'जात',
-      male: 'पुरुष',
-      female: 'महिला',
-      total: 'एकूण'
+      title: "जातीनुसार मतदार सारणी",
+      caste: "जात",
+      male: "पुरुष",
+      female: "महिला",
+      total: "एकूण",
     },
     villageStats: {
-      title: 'गावाची आकडेवारी'
-    }
+      title: "गावाची आकडेवारी",
+    },
   },
   en: {
     qrPayment: {
-      title: 'QR Payment',
-      description: 'Scan QR code to make payment',
-      scanQR: 'Scan QR Code',
-      amount: 'Amount',
-      payNow: 'Pay Now'
+      title: "QR Payment",
+      description: "Scan QR code to make payment",
+      scanQR: "Scan QR Code",
+      amount: "Amount",
+      payNow: "Pay Now",
     },
     statistics: {
-      title: 'Statistics Dashboard',
-      totalPopulation: 'Total Population',
-      literacyRate: 'Literacy Rate',
-      totalLand: 'Total Land',
-      educationCenters: 'Education Centers'
+      title: "Statistics Dashboard",
+      totalPopulation: "Total Population",
+      literacyRate: "Literacy Rate",
+      totalLand: "Total Land",
+      educationCenters: "Education Centers",
     },
     casteTable: {
-      title: 'Caste Wise Voter Table',
-      caste: 'Caste',
-      male: 'Male',
-      female: 'Female',
-      total: 'Total'
+      title: "Caste Wise Voter Table",
+      caste: "Caste",
+      male: "Male",
+      female: "Female",
+      total: "Total",
     },
     villageStats: {
-      title: 'Village Statistics'
-    }
-  }
+      title: "Village Statistics",
+    },
+  },
 };
 
 // QR Payment Section Component
-export const QRPaymentSection = ({ language = 'mr' }) => {
+export const QRPaymentSection = ({ language = "mr" }) => {
   const t = translations[language] || translations.mr;
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState("");
   const [qrCodes, setQRCodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedQR, setSelectedQR] = useState(null);
@@ -77,7 +77,7 @@ export const QRPaymentSection = ({ language = 'mr' }) => {
         setSelectedQR(response.qrCodes[0]); // Select first QR code by default
       }
     } catch (error) {
-      console.error('Error fetching QR codes:', error);
+      console.error("Error fetching QR codes:", error);
     } finally {
       setLoading(false);
     }
@@ -89,8 +89,8 @@ export const QRPaymentSection = ({ language = 'mr' }) => {
   };
 
   const getText = (obj, lang) => {
-    if (!obj) return '';
-    return obj[lang] || obj.mr || obj.en || obj.hi || '';
+    if (!obj) return "";
+    return obj[lang] || obj.mr || obj.en || obj.hi || "";
   };
 
   if (loading) {
@@ -119,8 +119,16 @@ export const QRPaymentSection = ({ language = 'mr' }) => {
               </p>
               <div className="bg-white rounded-lg p-6 mb-6 flex justify-center">
                 <div className="w-48 h-48 bg-gray-200 rounded-lg flex items-center justify-center">
-                  <svg className="w-32 h-32 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z" clipRule="evenodd" />
+                  <svg
+                    className="w-32 h-32 text-gray-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z"
+                      clipRule="evenodd"
+                    />
                     <path d="M8 6h4v4H8V6zm0 6h4v4H8v-4z" />
                   </svg>
                 </div>
@@ -152,7 +160,7 @@ export const QRPaymentSection = ({ language = 'mr' }) => {
                   Select Payment Type
                 </label>
                 <select
-                  value={selectedQR?.id || ''}
+                  value={selectedQR?.id || ""}
                   onChange={(e) => {
                     const qr = qrCodes.find((q) => q.id === e.target.value);
                     setSelectedQR(qr);
@@ -161,7 +169,8 @@ export const QRPaymentSection = ({ language = 'mr' }) => {
                 >
                   {qrCodes.map((qr) => (
                     <option key={qr.id} value={qr.id}>
-                      {getText(qr.purpose, language)} {qr.price ? `- ₹${qr.price}` : ''}
+                      {getText(qr.purpose, language)}{" "}
+                      {qr.price ? `- ₹${qr.price}` : ""}
                     </option>
                   ))}
                 </select>
@@ -182,8 +191,16 @@ export const QRPaymentSection = ({ language = 'mr' }) => {
                       />
                     ) : (
                       <div className="w-48 h-48 bg-gray-200 rounded-lg flex items-center justify-center">
-                        <svg className="w-32 h-32 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z" clipRule="evenodd" />
+                        <svg
+                          className="w-32 h-32 text-gray-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z"
+                            clipRule="evenodd"
+                          />
                           <path d="M8 6h4v4H8V6zm0 6h4v4H8v-4z" />
                         </svg>
                       </div>
@@ -195,11 +212,12 @@ export const QRPaymentSection = ({ language = 'mr' }) => {
                     <h3 className="text-xl font-bold text-teal-800 mb-2">
                       {getText(selectedQR.purpose, language)}
                     </h3>
-                    {selectedQR.description && getText(selectedQR.description, language) && (
-                      <p className="text-gray-700 mb-3">
-                        {getText(selectedQR.description, language)}
-                      </p>
-                    )}
+                    {selectedQR.description &&
+                      getText(selectedQR.description, language) && (
+                        <p className="text-gray-700 mb-3">
+                          {getText(selectedQR.description, language)}
+                        </p>
+                      )}
                     {selectedQR.price && (
                       <p className="text-2xl font-bold text-teal-600 mb-4">
                         ₹{selectedQR.price}
@@ -238,14 +256,14 @@ export const QRPaymentSection = ({ language = 'mr' }) => {
 };
 
 // Statistics Dashboard Component
-export const StatisticsDashboard = ({ language = 'mr' }) => {
+export const StatisticsDashboard = ({ language = "mr" }) => {
   const t = translations[language] || translations.mr;
-  
+
   const stats = [
-    { label: t.statistics.totalPopulation, value: '1853', icon: '👥' },
-    { label: t.statistics.literacyRate, value: '76%', icon: '📚' },
-    { label: t.statistics.totalLand, value: '500+', icon: '🌾' },
-    { label: t.statistics.educationCenters, value: '6+', icon: '🏫' }
+    { label: t.statistics.totalPopulation, value: "1853", icon: "👥" },
+    { label: t.statistics.literacyRate, value: "76%", icon: "📚" },
+    { label: t.statistics.totalLand, value: "500+", icon: "🌾" },
+    { label: t.statistics.educationCenters, value: "6+", icon: "🏫" },
   ];
 
   return (
@@ -255,15 +273,17 @@ export const StatisticsDashboard = ({ language = 'mr' }) => {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
             {t.statistics.title}
           </h2>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
-              <div 
+              <div
                 key={index}
                 className="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-300"
               >
                 <div className="text-4xl mb-4">{stat.icon}</div>
-                <div className="text-3xl font-bold text-teal-700 mb-2">{stat.value}</div>
+                <div className="text-3xl font-bold text-teal-700 mb-2">
+                  {stat.value}
+                </div>
                 <div className="text-gray-700 font-medium">{stat.label}</div>
               </div>
             ))}
@@ -275,19 +295,19 @@ export const StatisticsDashboard = ({ language = 'mr' }) => {
 };
 
 // Caste Wise Voter Table Component
-export const CasteWiseVoterTable = ({ language = 'mr' }) => {
+export const CasteWiseVoterTable = ({ language = "mr" }) => {
   const t = translations[language] || translations.mr;
-  
+
   const casteData = [
-    { caste: 'अनुसुचीत जाती (SC)', male: 72, female: 68, total: 140 },
-    { caste: 'अनुसुचीत जमाती(ST)', male: 12, female: 16, total: 28 },
-    { caste: 'इतर मागास वग(OBC)', male: 78, female: 55, total: 133 },
-    { caste: 'विशेष मागास प्रवर्ग (SBC)', male: 66, female: 90, total: 150 },
-    { caste: 'भटक्या जमाती -अ (VJ)', male: 120, female: 110, total: 230 },
-    { caste: 'भटक्या जमाती - ब(NT-B)', male: 72, female: 95, total: 162 },
-    { caste: 'भटक्या जमाती - क (NT-C)', male: 100, female: 88, total: 188 },
-    { caste: 'भटक्या जमाती - ड (NT-D)', male: 80, female: 65, total: 145 },
-    { caste: 'खुला प्रवर्ग(OPEN)', male: 75, female: 92, total: 167 }
+    { caste: "अनुसुचीत जाती (SC)", male: 72, female: 68, total: 140 },
+    { caste: "अनुसुचीत जमाती(ST)", male: 12, female: 16, total: 28 },
+    { caste: "इतर मागास वग(OBC)", male: 78, female: 55, total: 133 },
+    { caste: "विशेष मागास प्रवर्ग (SBC)", male: 66, female: 90, total: 150 },
+    { caste: "भटक्या जमाती -अ (VJ)", male: 120, female: 110, total: 230 },
+    { caste: "भटक्या जमाती - ब(NT-B)", male: 72, female: 95, total: 162 },
+    { caste: "भटक्या जमाती - क (NT-C)", male: 100, female: 88, total: 188 },
+    { caste: "भटक्या जमाती - ड (NT-D)", male: 80, female: 65, total: 145 },
+    { caste: "खुला प्रवर्ग(OPEN)", male: 75, female: 92, total: 167 },
   ];
 
   return (
@@ -297,7 +317,7 @@ export const CasteWiseVoterTable = ({ language = 'mr' }) => {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
             {t.casteTable.title}
           </h2>
-          
+
           <div className="overflow-x-auto">
             <table className="w-full bg-white rounded-lg shadow-md overflow-hidden">
               <thead className="bg-teal-600 text-white">
@@ -310,9 +330,9 @@ export const CasteWiseVoterTable = ({ language = 'mr' }) => {
               </thead>
               <tbody>
                 {casteData.map((row, index) => (
-                  <tr 
-                    key={index} 
-                    className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
+                  <tr
+                    key={index}
+                    className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
                   >
                     <td className="px-4 py-3 font-medium">{row.caste}</td>
                     <td className="px-4 py-3">{row.male}</td>
@@ -336,13 +356,12 @@ export const CasteWiseVoterTable = ({ language = 'mr' }) => {
 };
 
 // Village Statistics Components (Combined)
-export const VillageStatisticsComponents = ({ language = 'mr' }) => {
+export const VillageStatisticsComponents = ({ language = "mr" }) => {
   return (
     <div>
-      <StatisticsDashboard language={language} />
-      <CasteWiseVoterTable language={language} />
+      {/* <StatisticsDashboard language={language} />
+      <CasteWiseVoterTable language={language} /> */}
       <QRPaymentSection language={language} />
     </div>
   );
 };
-
